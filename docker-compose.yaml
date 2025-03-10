@@ -6,7 +6,18 @@ services:
       - 127.0.0.1:25:25
     env_file:
       - ./environments/smtp.env
-
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: my_data_db
+      POSTGRES_USER: my_data_user
+      POSTGRES_PASSWORD: my_data_pwd
+    ports:
+      - "5488:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
   loki:
     image: grafana/loki:3.3.0
     container_name: loki
@@ -33,7 +44,7 @@ services:
     ports:
       - 9093:9093
   grafana:
-    image: grafana/grafana:${GRAFANA_VERSION:-11.3.0}
+    image: grafana/grafana:${GRAFANA_VERSION:-11.5.2}
     container_name: grafana
     environment:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -46,3 +57,6 @@ services:
       - ./grafana:/etc/grafana/provisioning/
     ports:
       - 3000:3000
+volumes:
+  postgres:
+    driver: local
