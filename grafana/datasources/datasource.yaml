@@ -32,3 +32,14 @@ datasources:
       handleGrafanaManagedAlerts: false
     basicAuth: true
     isDefault: false
+  - name: Postgres
+    type: postgres
+    url: postgres:5432
+    user: my_data_user
+    secureJsonData:
+      password: "my_data_pwd"
+    jsonData:
+      database: my_data_db
+      sslmode: 'disable' 
+      postgresVersion: 1500
+      timescaledb: false
