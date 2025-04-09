@@ -1,13 +1,13 @@
 services:
   smtp:
-    image: ixdotai/smtp:v0.5.2
+    image: ixdotai/smtp:v0.7.6
     container_name: smtp
     ports:
       - 127.0.0.1:25:25
     env_file:
       - ./environments/smtp.env
   postgres:
-    image: postgres:15
+    image: postgres:17
     container_name: postgres
     restart: always
     environment:
