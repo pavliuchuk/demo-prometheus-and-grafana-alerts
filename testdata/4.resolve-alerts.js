@@ -1,4 +1,4 @@
-import { check } from "k6";
+import { check, sleep } from "k6";
 import remote from "k6/x/remotewrite";
 
 export let options = {
@@ -32,4 +32,5 @@ function sendMetricData(instanceValue, value) {
   check(res, {
     "is status 204": (r) => r.status === 204,
   });
+  sleep(0.001);
 }
