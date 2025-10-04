@@ -30,53 +30,18 @@ You can then access:
 
 This demo uses [Grafana k6](https://grafana.com/docs/k6) to generate test data for Prometheus and Loki.
 
-To run k6 tests and store logs in Loki and time series data in Prometheus, you'll need a k6 version with the `xk6-client-prometheus-remote` and `xk6-loki` extensions.
+The [k6 tests in the `testdata` folder](./testdata/) inject Prometheus metrics and Loki logs that you can use to define alert queries and conditions. 
 
-You can build the k6 version using the [`xk6` instructions](https://grafana.com/docs/k6/latest/extensions/build-k6-binary-using-go/) or Docker as follows:
+1. Install **k6 v1.2.0** or later.
 
-<details>
-  <summary>macOS</summary>
+2. Run a k6 test with the following command:
 
-  ```bash
-  docker run --rm -it -e GOOS=darwin -u "$(id -u):$(id -g)" -v "${PWD}:/xk6" \
-    grafana/xk6 build v0.55.0 \
-    --with github.com/grafana/xk6-client-prometheus-remote@v0.3.2 \
-    --with github.com/grafana/xk6-loki@v1.0.0
-  ```
-</details>
+    ```bash
+    k6 run testdata/<FILE>.js
+    ```
 
-<details>
-  <summary>Linux</summary>
-
-  ```bash
-  docker run --rm -it -u "$(id -u):$(id -g)" -v "${PWD}:/xk6" \
-    grafana/xk6 build v0.55.0 \
-    --with github.com/grafana/xk6-client-prometheus-remote@v0.3.2 \
-    --with github.com/grafana/xk6-loki@v1.0.0
-  ```
-</details>
-
-<details>
-  <summary>Windows</summary>
-
-  ```bash
-docker run --rm -it -e GOOS=windows -u "$(id -u):$(id -g)" -v "${PWD}:/xk6" `
-  grafana/xk6 build v0.55.0 --output k6.exe `
-  --with github.com/grafana/xk6-client-prometheus-remote@v0.3.2 `
-  --with github.com/grafana/xk6-loki@v1.0.0
-```
-
-</details>
-
-
-Once you've built the necessary k6 version, you can pre-populate data by running the [scripts from the `testdata` folder](./testdata/) as follows:
-
-```bash
-./k6 run testdata/<FILE>.js
-```
-
-The `testdata` scripts inject Prometheus metric and Loki log data, which can be used to define alert queries and conditions. You can then modify and run the scripts to test the alerts.
-
+You can modify and run the k6 scripts to simulate different alert scenarios.
+For details on inserting data into Prometheus or Loki, see the `xk6-client-prometheus-remote` and `xk6-loki` APIs.
 
 ### Receive webhook notifications
 
