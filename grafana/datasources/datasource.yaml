@@ -12,6 +12,8 @@ datasources:
     basicAuth: false
     isDefault: true
     jsonData:
+      prometheusType: Prometheus
+      allowAsRecordingRulesTarget: false
       tlsAuth: false
       tlsAuthWithCACert: false
   - name: Loki
