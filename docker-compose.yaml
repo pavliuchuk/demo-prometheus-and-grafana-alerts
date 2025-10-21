@@ -4,8 +4,8 @@ services:
     container_name: smtp
     ports:
       - 127.0.0.1:25:25
-    env_file:
-      - ./environments/smtp.env
+#    env_file:
+#      - ./environments/smtp.env
   postgres:
     image: postgres:17
     container_name: postgres
