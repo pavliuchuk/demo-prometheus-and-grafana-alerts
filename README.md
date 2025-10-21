@@ -12,7 +12,7 @@ The Repository contains the *observability-as-code* project using the original G
 - **`pom.xml`** - Maven configuration dependencies for Jackson and Grafana Foundation SDK
 
 **Key Features Added:**
-- **Observability as Code** - A complete workflow where the dashboard is defined in Java, version-controlled in Git and automatically built and deployed to Grafana via the GitHub Actions CI/CD pipeline.
+- **Observability as Code** - A complete workflow where the dashboard is defined in Java and automatically built and deployed to Grafana via the GitHub Actions CI/CD pipeline.
 - **Clean Architecture** - Separation between the dashboard's definition and the panel creation.
 - **Visualization** - Creation of a 3-panel dashboard showing Avarage Value, Per Server Breakdown and Over Time Usage.
 - **Real-time Data Filtering** - Panels are implemented using a PromQL query to filter out any data older than 60 seconds. This ensures all panels correctly drop to 0 when the data stream stops.
