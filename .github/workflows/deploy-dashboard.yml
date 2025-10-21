@@ -28,4 +28,4 @@ jobs:
           GRAFANA_USER: ${{ secrets.GRAFANA_USER }}
           GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
         run: |
-          mvn exec:java -Dexec.mainClass="com.mydashboard.GenerateDashboard" -Dexec.args="send"
+          mvn clean install exec:java -Dexec.mainClass="com.mydashboard.GenerateDashboard" -Dexec.args="send"
