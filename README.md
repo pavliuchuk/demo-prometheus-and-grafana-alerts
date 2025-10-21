@@ -100,7 +100,7 @@ This path demonstrates the complete *observability-as-code* workflow.
 
 8. **View the Final Result**
  * Open public ngrok URL in browser 
- * Log in (admin/admin) and view the "Custom CPU Usage Dashboard"
+ * Go to Dashboards and view the "CPU Usage Dashboard"
 
 ### Dashboard Features
 
