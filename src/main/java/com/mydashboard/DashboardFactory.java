@@ -74,7 +74,6 @@ public class DashboardFactory {
         targetDatasource.put("uid", "DS_PROMETHEUS_UID");
         target.set("datasource", targetDatasource);
         target.put("expr", "cpu_usage AND (time() - timestamp(cpu_usage) < 60)");
-//        target.put("expr", "cpu_usage");           // Default Prometheus query
         target.put("legendFormat", "{{instance}}");
         target.put("refId", "A");
         targets.add(target);
@@ -185,7 +184,6 @@ public class DashboardFactory {
         ObjectNode legend = mapper.createObjectNode();
         ArrayNode calcs = mapper.createArrayNode();
         calcs.add("mean");
-        calcs.add("last");
         calcs.add("max");
         legend.set("calcs", calcs);
         legend.put("displayMode", "table");
@@ -197,7 +195,6 @@ public class DashboardFactory {
 
     /**
      * Setup options for the Gauge panel.
-     * This panel overrides the default query to show a single cluster-wide average.
      */
     private void setupGaugeOptions(ObjectNode panel, ObjectMapper mapper) {
 
@@ -205,15 +202,13 @@ public class DashboardFactory {
 
         setupThresholds(panel, mapper);
 
-        // OVERRIDE the query for this panel
         ArrayNode targets = (ArrayNode) panel.get("targets");
-        ObjectNode target = (ObjectNode) targets.get(0); // Get the default target
+        ObjectNode target = (ObjectNode) targets.get(0);
         target.put("expr", "avg(cpu_usage AND (time() - timestamp(cpu_usage) < 60))");
         target.put("legendFormat", "Average");
 
         target.put("instant", true);
 
-        // Options
         ObjectNode options = mapper.createObjectNode();
         options.put("orientation", "auto");
         options.put("showThresholdLabels", false);
@@ -225,15 +220,13 @@ public class DashboardFactory {
 
     /**
      * Setup options for the Bar Chart panel.
-     * This panel uses the default query (`cpu_usage`) and adds a reduce
-     * transformation to make it act as a Bar Gauge (showing one bar per server).
      */
     private void setupBarChartOptions(ObjectNode panel, ObjectMapper mapper) {
 
         setupBasicFieldConfig(panel, mapper, "palette-classic");
 
         ArrayNode targets = (ArrayNode) panel.get("targets");
-        ObjectNode target = (ObjectNode) targets.get(0); // Get the default target
+        ObjectNode target = (ObjectNode) targets.get(0);
         target.put("instant", true);
 
         ObjectNode options = mapper.createObjectNode();
